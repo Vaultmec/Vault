@@ -1,0 +1,36 @@
+sync.WaitGroup (wg) concept:
+
+WaitGroup as a Checklist:
+
+Imagine you have a checklist (WaitGroup).
+It starts with zero items on the list.
+Adding Tasks to the List:
+
+When you want to wait for something to finish, you add an item to the list.
+wg.Add(2) means you're adding two items to the list.
+Goroutines as Tasks:
+
+You have tasks to do, like sending and receiving messages.
+Each task is a goroutine.
+Task Completion:
+
+When a task (goroutine) finishes, it says, "I'm done!" by checking off one item on the list.
+defer wg.Done() is like saying, "Automatically check me off when I'm done."
+Waiting for Tasks to Finish:
+
+The main program says, "
+I'll wait until everything on the list is checked off."
+wg.Wait() makes the main program wait.
+Continuing After Tasks:
+
+Once all tasks are done (all items are checked off), the main program continues.
+In a nutshell, sync.WaitGroup is like a to-do list. You add tasks to the list, and as each task finishes, it checks itself off. The main program waits until everything is checked off before moving on.
+
+
+
+he wg.Wait() call in your code blocks the execution of the main goroutine until the WaitGroup counter becomes zero. 
+Each task (goroutine) that finishes will automatically decrement the counter using wg.Done().
+
+So, as long as there are tasks remaining (items on the checklist), 
+the main program will be blocked at wg.Wait(). Once all tasks are done, meaning the WaitGroup counter is zero,
+ the main program can proceed beyond the wg.Wait() line and continue with the rest of the code or exit the program if it's at the end of the main function.
